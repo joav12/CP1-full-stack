@@ -5,6 +5,15 @@
     $n = $_GET['n'];
     $PV = $_GET['PV'];
     $VE = $_GET['VE'];
+
+    $CF = $i / (1 - (1 / ((1 + $i)**$n)));
+    $PMT1_2 = $PV * $CF;
+    $PMT3 = ($PV * $CF) / (1 + $CF);
+
+    $TaPC1 = $PMT1_2 *$n;
+    $TaPC2 = $VE + ($PMT1_2 * $n);
+
+    $TaPC3 = $VE + ($PMT3 * $n);
 ?>
 
 <!DOCTYPE html>
@@ -14,6 +23,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/styles.css">
     <link href="css/cdn.jsdelivr.net_npm_bootstrap@5.3.3_dist_css_bootstrap.min.css" rel="stylesheet">
+    <script src="js/jquery-3.7.1.min.js"></script>
+    <script src="js/cdn.jsdelivr.net_npm_bootstrap@5.3.3_dist_js_bootstrap.bundle.min.js"></script>
+    <script src="js/jquery.js" defer></script>
     <title>Cp1-Cenários</title>
 </head>
 <body>
@@ -44,9 +56,21 @@
                 </div>
             </fieldset>
         </form>
+
+        <div id="cen1">
+            <h1>O valor que o senhor terá que pagar caso não tenha entrada é</h1>
+            <h2><?php echo round($TaPC1, 2) ?></h2>
+        </div>
+
+        <div id="cen2">
+            <h1>O valor que o senhor terá que pagar caso tenha um valor de entrada</h1>
+            <h2><?php echo round($TaPC2, 2) ?></h2>
+        </div>
+
+        <div id="cen3">
+            <h1>O valor que o senhor terá que pagar caso o valor de entrada e a parcela sejam as mesmas</h1>
+            <h2><?php echo round($TaPC3, 2) ?></h2>
+        </div>
     </div>
 </body>
 </html>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-<script src="js/cdn.jsdelivr.net_npm_bootstrap@5.3.3_dist_js_bootstrap.bundle.min.js"></script>
-<script src="js/jquery.js"></script>
