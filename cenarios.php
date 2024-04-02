@@ -1,4 +1,8 @@
 <?php
+    session_start();
+
+    require_once('funcoes.php');
+
     $nome = $_GET['nome'];
 
     $i = $_GET['i'] / 100;
@@ -6,14 +10,19 @@
     $PV = $_GET['PV'];
     $VE = $_GET['VE'];
 
-    $CF = $i / (1 - (1 / ((1 + $i)**$n)));
-    $PMT1_2 = $PV * $CF;
-    $PMT3 = ($PV * $CF) / (1 + $CF);
+    $dados=[
+        "nome" => $nome,
+        "CPF" => $_GET['CPF'],
+        "email" => $_GET['email'],
+        "telefone" => $_GET['telefone'],
+        "dataDeNasc" => $_GET['dataNasc'],
+        "valorDaCompra" => $PV,
+        "taxaDeJuros" => $i,
+        "numeroDeParcelas" => $n,
+        "valorDeEntrada" => $VE
+    ];
 
-    $TaPC1 = $PMT1_2 *$n;
-    $TaPC2 = $VE + ($PMT1_2 * $n);
-
-    $TaPC3 = $VE + ($PMT3 * $n);
+    $_SESSION[$nome] = $dados;
 ?>
 
 <!DOCTYPE html>
@@ -59,17 +68,107 @@
 
         <div id="cen1">
             <h1>O valor que o senhor terá que pagar caso não tenha entrada é</h1>
-            <h2><?php echo round($TaPC1, 2) ?></h2>
+            <div class="container lista text-center">
+                <div class="row">
+                    <div class="col">
+                    Valor de compra
+                    </div>
+                    <div class="col">
+                    Taxa de juros
+                    </div>
+                    <div class="col">
+                    Numero de parcelas
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col">
+                        <?php echo $PV ?>
+                    </div>
+                    <div class="col">
+                        <?php echo $i ?>
+                    </div>
+                    <div class="col">
+                        <?php echo $n ?>
+                    </div>
+                </div>
+
+                <h2><?php echo round(cenario1($PV, $i, $n), 2) ?></h2>
+            </div>
         </div>
 
         <div id="cen2">
             <h1>O valor que o senhor terá que pagar caso tenha um valor de entrada</h1>
-            <h2><?php echo round($TaPC2, 2) ?></h2>
+            <div class="container lista text-center">
+                <div class="row">
+                    <div class="col">
+                    Valor de compra
+                    </div>
+                    <div class="col">
+                    Taxa de juros
+                    </div>
+                    <div class="col">
+                    Numero de parcelas
+                    </div>
+                    <div class="col">
+                    Valor de entrada
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col">
+                        <?php echo $PV ?>
+                    </div>
+                    <div class="col">
+                        <?php echo $i ?>
+                    </div>
+                    <div class="col">
+                        <?php echo $n ?>
+                    </div>
+                    <div class="col">
+                        <?php echo $VE ?>
+                    </div>
+                </div>
+
+                <h2><?php echo round(cenario2($PV, $i, $n, $VE), 2) ?></h2>
+            </div>
         </div>
 
         <div id="cen3">
             <h1>O valor que o senhor terá que pagar caso o valor de entrada e a parcela sejam as mesmas</h1>
-            <h2><?php echo round($TaPC3, 2) ?></h2>
+            <div class="container lista text-center">
+                <div class="row">
+                    <div class="col">
+                    Valor de compra
+                    </div>
+                    <div class="col">
+                    Taxa de juros
+                    </div>
+                    <div class="col">
+                    Numero de parcelas
+                    </div>
+                    <div class="col">
+                    Valor de entrada
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col">
+                        <?php echo $PV ?>
+                    </div>
+                    <div class="col">
+                        <?php echo $i ?>
+                    </div>
+                    <div class="col">
+                        <?php echo $n ?>
+                    </div>
+                    <div class="col">
+                        <?php echo $VE ?>
+                    </div>
+                </div>
+
+                <h2><?php echo round(cenario3($PV, $i, $n, $VE), 2) ?></h2>
+            </div>
         </div>
     </div>
 </body>

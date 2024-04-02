@@ -32,4 +32,17 @@
         text-align: center;
         display: none;
     }
+
+    .lista{
+        border: 1px solid black;
+
+        .row{
+            margin-bottom: 20px;
+            border-bottom: 1px solid black;
+
+            .col{
+                border-right: 1px solid black;
+            }
+        }
+    }
 }
